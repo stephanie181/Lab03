@@ -5,18 +5,16 @@ const NUMBER_OF_DOMINOS = 20;
 const STARTING_LIVES = 5;
 const HALF_CLEARED_COUNT = NUMBER_OF_DOMINOS / 2;
 
-// changed to class from export const?
-class Ui {
-  constructor () {
-  this.dominoElements = [],
-  this.targetElement = null,
-  this.statusElement = null,
-  }
+export const ui = {
+  dominoElements: [],
+  targetElement: null,
+  statusElement: null,
+
   /**
    * Finds and stores references to key UI elements like dominos, target element, and status.
    * @returns {void}
    */
-  cacheDominoElements:() {
+  cacheDominoElements: function () {
     this.dominoElements = [];
     for (let i = 0; i < NUMBER_OF_DOMINOS; i++) {
       this.dominoElements.push(document.getElementById(i));
@@ -24,7 +22,7 @@ class Ui {
 
     this.targetElement = document.getElementById("target-domino");
     this.statusElement = document.getElementById("status");
-  }
+  },
 
   /**
    * Formats the domino object into a string visualization.
@@ -33,33 +31,33 @@ class Ui {
    */
   // did destructuring - extract leftPips, rightPips from domino parameter
   // made the return into a template literal
-  formatDominoText: ({ leftPips, rightPips }) {
+  formatDominoText: function ({ leftPips, rightPips }) {
     return `${leftPips} | ${rightPips}`;
-  }
+  },
 
   /**
    * Iterates over dominoElements and shows their back faces.
    * @returns {void}
    */
-  showAllBacks: () {
+  showAllBacks: function () {
     // TODO: iterate over dominoElements and show the back for each domino.
     for (let i = 0; i < NUMBER_OF_DOMINOS; i++) {
       this.showDominoBack(i);
     }
-  }
+  },
 
   /**
    * Restores a specific domino to show its backside (face down).
    * @param {number} index - The dominos array index indicating the element to process.
    * @returns {void}
    */
-  showDominoBack: (index) {
+  showDominoBack: function (index) {
     // TODO: show the back of the domino at the given index.
     const domino = this.dominoElements[index];
     domino.textContent = "";
     domino.classList.remove("removed");
     domino.classList.add("back");
-  }
+  },
 
   /**
    * Unveils the face (pips) of a specific domino block.
@@ -67,46 +65,46 @@ class Ui {
    * @param {Object} dominoObj - The relevant domino's data holding pips.
    * @returns {void}
    */
-  showGridDominoFace: (index, dominoObj) {
+  showGridDominoFace: function (index, dominoObj) {
     // TODO: show the face of the domino at the given index.
     const domino = this.dominoElements[index];
     domino.textContent = this.formatDominoText(dominoObj);
     domino.classList.remove("back");
     domino.classList.remove("removed");
-  }
+  },
 
   /**
    * Refreshes the display text of the master target domino.
    * @param {Object} dominoObj - The current target domino object containing the pips.
    * @returns {void}
    */
-  updateTarget: (dominoObj) {
+  updateTarget: function (dominoObj) {
     this.targetElement.textContent = this.formatDominoText(dominoObj);
-  }
+  },
 
   /**
    * Restricts interactivity and click behavior on a particular domino UI component.
    * @param {number} index - The specific array index mapping to the domino element.
    * @returns {void}
    */
-  disableDomino: (index) {
+  disableDomino: function (index) {
     // TODO: disable the domino at the given index.
     const domino = this.dominoElements[index];
     domino.onclick = null;
     domino.style.cursor = "default";
-  }
+  },
 
   /**
    * Iterates through domino elements, globally locking their interactions (clicks).
    * @returns {void}
    */
-  disableAllDominos:() {
+  disableAllDominos: function () {
     // TODO: iterate over dominoElements and disable each domino.
     for (const domino of this.dominoElements) {
       domino.onclick = null;
       domino.style.cursor = "default";
     }
-  }
+  },
 
   /**
    * Reactivates clicking and interactions for various DOM domino elements based on their status.
@@ -114,7 +112,7 @@ class Ui {
    * @param {boolean} onlyRemaining - If false, all elements activate; otherwise only non-removed elements are re-enabled. Defaults to false.
    * @returns {void}
    */
-  enableAllDominos: (clickHandler, onlyRemaining = false) {
+  enableAllDominos: function (clickHandler, onlyRemaining = false) {
     for (const domino of this.dominoElements) {
       const isRemoved = domino.classList.contains("removed");
       if (!onlyRemaining || !isRemoved) {
@@ -122,7 +120,7 @@ class Ui {
         domino.style.cursor = "pointer";
       }
     }
-  }
+  },
 
   /**
    * Hides and disables a correctly selected grid domino element completely.
@@ -130,7 +128,7 @@ class Ui {
    * @returns {void}
    */
 
-  removeDomino: (index) {
+  removeDomino: function (index) {
     // TODO: remove the domino at the given index from the board.
     const domino = this.dominoElements[index];
     domino.textContent = "";
@@ -138,7 +136,7 @@ class Ui {
     domino.classList.add("removed");
     domino.onclick = null;
     domino.style.cursor = "default";
-  }
+  },
 
   /**
    * Renders UI diagnostic indicators about lives tracking, completed levels, and alert messaging to players.
@@ -149,12 +147,12 @@ class Ui {
    */
 
   // added 2 template literals for let text, and text +=
-  updateStatus: (lives, removedCount, message = "") {
+  updateStatus: function (lives, removedCount, message = "") {
     // TODO: show lives, removed count, and optional message in the status element.
     let text = `Lives: ${lives} Removed: ${removedCount}/${NUMBER_OF_DOMINOS}`;
     if (message !== "") {
       text += ` | ${message}`;
     }
     this.statusElement.innerHTML = text;
-  }
+  },
 };
