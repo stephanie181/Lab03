@@ -1,3 +1,4 @@
+// Stephanie Rodriguez 4/19/26. AI used to tutor and debug
 import Game from './models/Game.js';
 
 // ---- Module State & DOM Elements ---- //
@@ -57,10 +58,17 @@ function handleStartGame() {
 }
 
 function handleRollClick() {
-    if (game.hasRolled && !game.diceSet.dice.some(die => die.isHeld)) {
-        showMessage("You must hold at least 1 die before rolling!");
+    let heldCount = 0;
+    for (const die of game.diceSet.dice) {
+        if (die.isHeld) heldCount++;
+    }
+
+    if (game.hasRolled && heldCount === game.heldCountAfterLastRoll) {
+        showMessage("You must hold at least 1 die before rolling again!");
         return;
     }
+
+    game.heldCountAfterLastRoll = heldCount;
     game.rollDice();
     renderDice();
     updateUI();

@@ -1,3 +1,4 @@
+// Stephanie Rodriguez 4/19/26. AI used to tutor and debug
 import Die from "./Die.js";
 
 export default class DiceSet {
@@ -64,7 +65,7 @@ export default class DiceSet {
 
   // Validates if the player is legally allowed to un-keep a clicked die.
   canUnhold(die) {
-    return true;
+    return "You cannot unhold a die once it's been held!";
   }
   
 // Sums the remaining dice after setting aside the qualifying 1 and 4.

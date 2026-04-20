@@ -1,3 +1,4 @@
+// Stephanie Rodriguez 4/19/26. AI used to tutor and debug
 import DiceSet from "./DiceSet.js";
 import Player from "./Player.js";
 
@@ -27,6 +28,7 @@ export default class Game {
 
   resetTurnState() {
     this.hasRolled = false;
+    this.heldCountAfterLastRoll = 0;
     this.diceSet.reset();
   }
 
@@ -42,7 +44,7 @@ export default class Game {
   }
 
   // Helper methods to abstract end-of-turn game states away from the UI
- // The turn is over when all 6 dice are held.
+  // The turn is over when all 6 dice are held.
   isTurnOver() {
     let heldCount = 0;
     for (const die of this.diceSet.dice) {
@@ -53,10 +55,10 @@ export default class Game {
     return heldCount === 6;
   }
 
-// Midnight doesn't really have a bust condition, but a player who ends with no 1 or 4 just scores 0
+  // Midnight doesn't really have a bust condition, but a player who ends with no 1 or 4 just scores 0
   hasBusted() {
     return false;
-}
+  }
 
   endTurn() {
     // Save score for current player via its setter to respect encapsulation.

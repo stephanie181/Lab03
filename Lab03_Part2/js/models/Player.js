@@ -1,3 +1,4 @@
+// Stephanie Rodriguez 4/19/26. AI used to tutor and debug
 export default class Player {
     constructor(name) {
         this.name = name;
