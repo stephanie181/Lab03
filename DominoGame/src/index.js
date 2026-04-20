@@ -1,5 +1,8 @@
-import { gameLogic } from "./gameLogic.js";
-import { ui } from "./ui.js";
+import { GameLogic } from "./gameLogic.js";
+import { UI } from "./ui.js";
+
+const gameLogic = new GameLogic();
+const ui = new UI();
 /*  Overview
     Domino Drop presents a grid of face-down dominos and one visible target domino.
     Click a face-down domino to reveal it. If its total pips are strictly greater
